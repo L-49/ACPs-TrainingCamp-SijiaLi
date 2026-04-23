@@ -1,0 +1,158 @@
+name: "电商客服机器人"
+version: "2.0"
+description: "处理小米手机电商服务场景以及技术售后场景的客服对话"
+rules:
+  # ================ 系统启动问候 ================
+  - when: welcome
+    patterns:
+      - "你好"
+      - "在吗"
+      - "客服"
+    actions:
+      - action: respond
+        content: "您好！欢迎来到小米手机官方旗舰店，我是智能客服小助手。请问有什么可以帮您？"
+
+  # ================ 产品查询 ================
+  - when: product_query
+    patterns:
+      - "小米17怎么样？"
+      - "小米15 Pro的配置？"
+      - "小米14 Ultra多少钱？"
+      - "小米17 Pro Max有现货吗？"
+    actions:
+      - action: respond_with_llm
+        context:
+          query_type: product
+
+  # ================ 购买流程 ================
+  - when: buy_product
+    patterns:
+      - "我要买小米17"
+      - "购买小米15 Pro"
+      - "下单小米17 Pro Max"
+      - "买小米14 Ultra"
+      - "想买小米14"
+    actions:
+      - action: respond
+        content: "正在为您生成专属购买链接..."
+      - action: respond_with_llm
+        content: "点击链接立即购买：{buy_url}"
+      - action: set_context
+        key: transaction_status
+        value: confirmed
+
+  # ================ 订单管理（4位订单号版本） ================
+  - when: order_query
+    patterns:
+      - "查询订单"
+      - "订单状态"
+      - "我的订单"
+      - "查一下订单"
+    actions:
+      - action: respond
+        content: "请提供您的4位订单号，我将为您查询。"
+
+  - when: order_number
+    patterns:
+      - "1234"
+      - "订单号1234"
+      - "订单1234"
+      - "4位数字"
+    actions:
+      - action: respond
+        content: "您的订单已发货，预计明天送达。"
+      - action: set_context
+        key: order_status
+        value: shipped
+
+  - when: cancel_order
+    patterns:
+      - "取消订单"
+      - "我要取消"
+      - "退掉小米17"
+      - "不要了"
+    actions:
+      - action: respond
+        content: "很抱歉给您带来不便。请提供4位订单号和退款原因，我将为您处理退款申请。"
+
+  - when: cancel_order_number
+    patterns:
+      - "1234 退款原因"
+      - "1234 产品有瑕疵"
+      - "1234 操作失误"
+    actions:
+      - action: respond
+        content: "您的订单已成功取消，退款金额将于72小时内到账。"
+      - action: set_context
+        key: cancel_request
+        value: completed
+
+  # ================ 售后服务 ================
+  - when: after_sales
+    patterns:
+      - "售后保障"
+      - "怎么退换货？"
+      - "保修政策"
+      - "换电池怎么办？"
+    actions:
+      - action: respond
+        content: "小米官方售后政策：15天无理由退换，1年质保。详情：https://www.mi.com/service"
+
+  # ================ 手机硬件故障售后 ================
+  - when: hardware_issue
+    patterns:
+      - "开机异常"
+      - "开不了机"
+      - "无法开机"
+      - "音量键失效"
+      - "音量键坏了"
+      - "屏幕碎掉"
+      - "屏幕破裂"
+      - "屏幕摔碎"
+      - "黑屏"
+      - "屏幕不亮"
+      - "手机进水"
+      - "进水了"
+      - "无法唤出小爱同学"
+      - "小爱同学没反应"
+    actions:
+      - action: respond_with_llm
+        context:
+          query_type: hardware_support
+      #- action: respond
+        #content: "很抱歉听到您的手机出现问题。根据您描述的情况，这属于硬件故障，建议您：1. 立即停止使用设备 2. 前往就近的小米授权服务中心 3. 携带购买凭证和保修卡。您可以通过小米官网查询附近的服务中心位置：https://www.mi.com/service。"
+      - action: suggest
+        options: ["查询服务中心", "预约上门维修", "联系人工客服"]
+
+  # ================ 手机软件故障售后 ================
+  - when: software_issue  
+    patterns:
+      - "系统卡顿"
+      - "手机卡死"
+      - "应用闪退"
+      - "软件崩溃"
+      - "系统更新失败"
+      - "无法连接WiFi"
+      - "蓝牙连不上"
+      - "相机打不开"
+      - "指纹识别失灵"
+    actions:
+      - action: respond_with_llm
+        context:
+          query_type: software_support
+      #- action: respond
+        #content: "针对您遇到的软件问题，建议您先尝试以下步骤：1. 重启手机 2. 清除相关应用缓存 3. 检查系统更新。如果问题仍然存在，请备份重要数据后恢复出厂设置。详细的故障排除指南请参考：https://www.mi.com/service/support"
+      - action: suggest
+        options: ["查看故障排除指南", "联系技术支持", "预约远程协助"]
+  # ================ 无效订单号处理 ================
+  - when: invalid_order_number
+    patterns:
+      - "\\D+"          # 匹配非数字字符
+      - "[a-zA-Z]+"     # 匹配字母
+      - "\\d{1,3}"      # 匹配长度不足4位的数字
+      - "\\d{5,}"       # 匹配长度超过4位的数字
+      - "无效订单号"
+      - "订单号错误"
+    actions:
+      - action: respond
+        content: "您输入的订单号{{input}}无效，请检查订单号是否为4位数字后重新输入。"

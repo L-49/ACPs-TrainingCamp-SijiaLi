@@ -1,0 +1,20 @@
+# 测试专用DSL，简化规则便于验证
+rules:
+  - when: order_number
+    actions:
+      - action: respond
+        content: "您的订单 {{input}} 已发货，预计明天送达。"
+
+  - when: cancel_order_number
+    patterns:
+      - "5678产品瑕疵"
+      - "5678 退款原因"
+    actions:
+      - action: respond
+        content: "您的订单{{input}}退款申请已成功受理，退款金额将于72小时内到账。"
+
+  - when: product_query
+    actions:
+      - action: call_tool
+        tool: get_product_info
+        args: ["{{input}}"]  

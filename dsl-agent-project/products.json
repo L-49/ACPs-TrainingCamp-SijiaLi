@@ -1,0 +1,85 @@
+{
+  "products": [
+    {
+      "name": "小米14",
+      "code": "xiaomi_14",
+      "release_date": "2023-10",
+      "status": "available",
+      "description": "小米14标准版，骁龙8 Gen3，徕卡影像",
+      "price": 3499,
+      "buy_url": "https://www.mi.com/xiaomi14"
+    },
+    {
+      "name": "小米14 Pro",
+      "code": "xiaomi_14_pro",
+      "release_date": "2023-10",
+      "status": "available",
+      "description": "小米14 Pro，徕卡全焦段影像，IP68防水",
+      "price": 3999,
+      "buy_url": "https://www.mi.com/xiaomi14_pro"
+    },
+    {
+      "name": "小米14 Ultra",
+      "code": "xiaomi_14_ultra",
+      "release_date": "2023-10",
+      "status": "available",
+      "description": "小米14 Ultra，徕卡Summilux镜头，专业影像旗舰",
+      "price": 4999,
+      "buy_url": "https://www.mi.com/xiaomi14_ultra"
+    },
+    {
+      "name": "小米15",
+      "code": "xiaomi_15",
+      "release_date": "2024-10",
+      "status": "available",
+      "description": "小米15标准版，骁龙8 Gen4，AI影像增强",
+      "price": 3999,
+      "buy_url": "https://www.mi.com/xiaomi15"
+    },
+    {
+      "name": "小米15 Pro",
+      "code": "xiaomi_15_pro",
+      "release_date": "2024-10",
+      "status": "available",
+      "description": "小米15 Pro，卫星通信，高端影像旗舰",
+      "price": 4499,
+      "buy_url": "https://www.mi.com/xiaomi15_pro"
+    },
+    {
+      "name": "小米15 Ultra",
+      "code": "xiaomi_15_ultra",
+      "release_date": "2024-10",
+      "status": "available",
+      "description": "小米15 Ultra，徕卡专业影像，5000万像素主摄",
+      "price": 5499,
+      "buy_url": "https://www.mi.com/xiaomi15_ultra"
+    },
+    {
+      "name": "小米17",
+      "code": "xiaomi_17",
+      "release_date": "2025-09-25",
+      "status": "available",
+      "description": "小米17标准版，骁龙8 Gen4，徕卡影像",
+      "price": 4999,
+      "buy_url": "https://www.mi.com/xiaomi17"
+    },
+    {
+      "name": "小米17 Pro",
+      "code": "xiaomi_17_pro",
+      "release_date": "2025-09-25",
+      "status": "available",
+      "description": "小米17 Pro，AI影像增强，卫星通信",
+      "price": 5499,
+      "buy_url": "https://www.mi.com/xiaomi17_pro"
+    },
+    {
+      "name": "小米17 Pro Max",
+      "code": "xiaomi_17_pro_max",
+      "release_date": "2025-09-25",
+      "status": "available",
+      "description": "小米17 Pro Max，巅峰影像旗舰，起售价5999元",
+      "price": 5999,
+      "buy_url": "https://www.mi.com/xiaomi17_pro_max"
+    }
+  ]
+}
